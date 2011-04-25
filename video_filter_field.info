@@ -1,0 +1,6 @@
+core = "7.x"
+description = "Provide Video Filter field formatter for text fields."
+name = "Video Filter Field"
+project = "video_filter_field"
+dependencies[] = video_filter
+version = "7.x-1.0"
