@@ -32,11 +32,6 @@ dsm($display,'display');
 dsm($items,'items');
 // */
 
-// TESTING
-//$text = '[video:http://www.youtube.com/watch?v=Jr8n0ww3pio]';
-//$text = video_filter_field_process($text);
-//$item = $text; // TESTING 
-
   $elements = array();
   foreach ($items as $delta => $item) {
     $url = $item['safe_value'];
