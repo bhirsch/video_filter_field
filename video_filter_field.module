@@ -151,7 +151,7 @@ function video_filter_field_field_widget_form(&$form, &$form_state, $field,
       '#title' => t('Video URL'),
       '#default_value' => isset($items[$delta]['url']) ? 
                           $items[$delta]['url'] : NULL,
-      '#weight' => 1,
+      '#weight' => 0,
       ) + $base;
     $element['height'] = array(
       '#type' => 'textfield',
