@@ -281,6 +281,7 @@ $filter->settings = array(
       $codecs = module_invoke_all('codec_info');
 
       // Find codec
+dsm($video, 'video');
       foreach ($codecs AS $codec_name => $codec) {
         if (!is_array($codec['regexp'])) {
           $codec['regexp'] = array($codec['regexp']);
@@ -377,4 +378,47 @@ $filter->settings = array(
   }
 
   return $text;
+}
+
+/**
+ * Test support for URL.
+ *
+ * @todo Implement hook_codec_info() to...
+ * - add support for whatever media module uses as an alternative to video_filter module.
+ * - add support for http://embed.ly/.
+ * 
+ * @param $url
+ *  string, URL which may or may not include media of some kind.
+ * 
+ * @return
+ *  TRUE, video_filter recognizes and supports media at this URL
+ *  FALSE, video_filter doesn't recognize it. This could be either because
+ *    the URL doesn't actually provide media or because we just doen't have
+ *    the codec for it.
+ */
+function video_filter_field_url_is_supported($url) {
+  // Load all codecs
+  module_load_include('inc', 'video_filter', 'video_filter.codecs');
+  $codecs = module_invoke_all('codec_info');
+
+  // Find codec
+  foreach ($codecs AS $codec_name => $codec) {
+    if (!is_array($codec['regexp'])) {
+      $codec['regexp'] = array($codec['regexp']);
+    }
+
+    // Try different regular expressions
+    $video = array();
+    foreach ($codec['regexp'] as $delta => $regexp) {
+      if (preg_match($regexp, $url)) {
+        $video['codec'] = TRUE;
+      }
+      break;
+    }
+    break;
+  }
+  // If we found a codec, this URL is supported. 
+  $is_supported = (isset($video['codec'])) ? TRUE : FALSE;
+
+  return $is_supported;
 }
