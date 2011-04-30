@@ -92,26 +92,26 @@ function video_filter_field_field_validate($obj_type, $object, $field,
                                            &$errors) {
   if ($field['type'] == 'video_filter') {
     foreach ($items as $delta => $item) {
-      // Test URL.
-      if (empty($item['url'])) {
-        $errors[$field['field_name']][$langcode][$delta][] = array(
-          'error' => 'video_filter_url',
-          'message'  => t('Video Filter Field: Invalid video URL'),
-        );
-      }
-      // Test height.
-      if (empty($item['height']) || !is_numeric($item['height'])) {
-        $errors[$field['field_name']][$langcode][$delta][] = array( 
-          'error' => 'video_filter_height',
-          'message' => t('Video Filter Field: Invalid video height'),
-        );
-      }
-      // Test width.
-      if (empty($item['width']) || !is_numeric($item['width'])) {
-        $errors[$field['field_name']][$langcode][$delta][] = array(
-          'error' => 'video_filter_width',
-          'message' => t('Video Filter Field: Invalid video width'),
-        );
+      // Test URL. 
+      if (!empty($item['url'])) {
+        //$errors[$field['field_name']][$langcode][$delta][] = array(
+        //  'error' => 'video_filter_url',
+        //  'message'  => t('Video Filter Field: Invalid video URL'),
+        //);
+        // If URL isn't empty, we need a height.
+        if (empty($item['height']) || !is_numeric($item['height'])) {
+          $errors[$field['field_name']][$langcode][$delta][] = array( 
+            'error' => 'video_filter_height',
+            'message' => t('Video Filter Field: Invalid video height'),
+          );
+        }
+        // If URL isn't empty, we need a width.
+        if (empty($item['width']) || !is_numeric($item['width'])) {
+          $errors[$field['field_name']][$langcode][$delta][] = array(
+            'error' => 'video_filter_width',
+            'message' => t('Video Filter Field: Invalid video width'),
+          );
+        }
       }
     } 
   }  
