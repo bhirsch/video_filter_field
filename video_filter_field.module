@@ -237,7 +237,7 @@ function video_filter_field_theme() {
  * Returns HTML for a video_filter_field_formatter
  */
 function theme_video_filter_field_default_formatter($variables) {
-  $output = $variables['item'];
+  $output = '<div class="video-filter-field">' . $variables['item'] . '</div>';
 
   return $output;
 }
@@ -281,7 +281,6 @@ $filter->settings = array(
       $codecs = module_invoke_all('codec_info');
 
       // Find codec
-dsm($video, 'video');
       foreach ($codecs AS $codec_name => $codec) {
         if (!is_array($codec['regexp'])) {
           $codec['regexp'] = array($codec['regexp']);
